@@ -10,7 +10,7 @@
     <%- include('partials/header.ejs')%>
         <div class="container">
             <div class="main">
-                <form action="/api/signup" method="post" class="form">
+                <form action="/api/signup" method="POST" class="form">
                     <h3>Регистрация</h3>
                     <fieldset class="fieldset">
                         <label for="">E-mail</label>
@@ -18,7 +18,7 @@
                     </fieldset>
                     <fieldset class="fieldset">
                         <label for="">Введите полное имя</label>
-                        <input type="text" placeholder="Введите имя" name="name">
+                        <input type="text" placeholder="Введите имя" name="full_name">
                     </fieldset>
                     <fieldset class="fieldset">
                         <label for="">Пароль</label>
