@@ -1,4 +1,5 @@
 const Film = require('./Film')
+const User = require('../auth/User')
 const fs = require('fs')
 const path = require('path')
 const createFilm = async (req, res) => {
@@ -71,8 +72,25 @@ const deleteFilm = async (req, res) => {
     }
 }
 
+const saveFilm = async (req, res) => {
+    if (req.user && req.body.id) {
+        const user = await User.findById(req.user.id)
+        const findFilm = user.toWatch.filter(item => item._id == req.body.id)
+        user.toWatch = []
+        if (findFilm.length == 0) {
+            user.toWatch.push(req.body.id)
+            user.save()
+            res.send('Film has been saved')
+        } else {
+            res.send('Film was already saved')
+        }
+    }
+
+}
+
 module.exports = {
     createFilm,
     editFilm,
-    deleteFilm
+    deleteFilm,
+    saveFilm
 }
