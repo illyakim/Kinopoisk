@@ -13,8 +13,8 @@
             <img src="/images/icons/gift.svg" alt="">
             День рождения Плюса
         </a>
-        <div class="head-search">
-            <input type="text" placeholder="Фильмы, сериалы, персоны">
+        <form class="head-search">
+            <input type="text" name="search" placeholder="Фильмы, сериалы, персоны">
             <button>
                 <svg class="styles_icon__1bYKL search-form-submit-button__icon" width="20" height="20"
                     viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -23,7 +23,7 @@
                         fill="#000"></path>
                 </svg>
             </button>
-        </div>
+        </form>
     </div>
     <div class="head-buttons">
         <% if(user._id && user.isAdmin){ %>

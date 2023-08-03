@@ -13,41 +13,87 @@
             <div class="main-detail">
                 <div class="detail">
                     <div class="film-image">
-                        <img src="/images/films/HomeAlone.webp" alt="">
+                        <img src="<%=film.image%>" alt="">
                     </div>
                     <div class="film-info-detail">
-                        <h2>Один дома(1990)</h2>
-                        <p>Home Alone</p>
-                        <button class="film-btn" onclick="saveToWatch()">
-                            <img src="/images/icons/save.svg" alt="">
-                            Буду смотреть
-                        </button>
-                        <h4>О фильме</h4>
-                        <div class="film-details">
-                            <p>Год производства</p>
-                            <p>1990</p>
-                        </div>
-                        <div class="film-details">
-                            <p>Страна</p>
-                            <p>США</p>
-                        </div>
-                        <div class="film-details">
-                            <p>Жанр</p>
-                            <p>Комедия</p>
-                        </div>
-                        <div class="film-details">
-                            <p>Время</p>
-                            <p>109 мин</p>
-                        </div>
+                        <h2>
+                            <%=film.titleRus%>
+                        </h2>
+                        <p>
+                            <%=film.titleEng%>
+                        </p>
+                        <% if(user && user.toWatch && user.toWatch.includes(film._id)){ %>
+                            <button class="film-btn" onclick="deleteFromToWatch('<%=film._id%>')">
+                                <img src="/images/icons/saved.png" alt="">
+                                Сохранено
+                            </button>
+                            <% }else{ %>
+                                <button class="film-btn" onclick="saveToWatch('<%=film._id%>')">
+                                    <img src="/images/icons/save.svg" alt="">
+                                    Буду смотреть
+                                </button>
+                                <%}%>
+                                    <h4>О фильме</h4>
+                                    <div class="film-details">
+                                        <p>Год производства</p>
+                                        <p>
+                                            <%=film.year%>
+                                        </p>
+                                        </div>
+                                        <div class="film-details">
+                                            <p>Страна</p>
+                                        <p>
+                                            <%=film.country.name%>
+                                        </p>
+                                        </div>
+                                        <div class="film-details">
+                                            <p>Жанр</p>
+                                        <p>
+                                            <%=film.genre.name%>
+                                        </p>
+                                        </div>
+                                        <div class="film-details">
+                                            <p>Время</p>
+                                        <p>
+                                            <%=film.time%>мин
+                                        </p>
+                                        </div>
 
                     </div>
                 </div>
-                <div class="film-player">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/Fmih-zWIjGY"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen></iframe>
-                </div>
+                <% if(film.video){ %>
+                    <div class="film-player">
+                        <iframe width="560" height="315" src="<%=film.video%>" title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                        </div>
+                        <%}%>
+                            <div class="comments">
+                                <h3>Комментарий</h3>
+                                <%if(user && user._id){%>
+                                    <form action="" class="add-comment-form">
+                                        <p>Оцените фильм</p>
+                                        <div class="comment-stars">
+                                            <img onclick="rateFilm(1)" src="/images/icons/star.svg" alt="">
+                                            <img onclick="rateFilm(2)" src="/images/icons/star.svg" alt="">
+                                            <img onclick="rateFilm(3)" src="/images/icons/star.svg" alt="">
+                                            <img onclick="rateFilm(4)" src="/images/icons/star.svg" alt="">
+                                            <img onclick="rateFilm(5)" src="/images/icons/star.svg" alt="">
+                                        </div>
+                                        <p>Напишите комментарий</p>
+                                        <textarea name="text"></textarea>
+                                        <button>Сохранить</button>
+                                    </form>
+                                    <%}else{%>
+                                        <p>
+                                            <a href="/login">Войдите</a>
+                                            или
+                                            <a href="/register">зарегистрируйтесь</a>,
+                                            чтобы оставить комментарий
+                                        </p>
+                                        <%}%>
+
+                        </div>
             </div>
 
         </div>
