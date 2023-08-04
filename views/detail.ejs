@@ -58,7 +58,10 @@
                                             <%=film.time%>мин
                                         </p>
                                         </div>
-
+                                        <div class="film-details">
+                                            <p>Рейтинг</p>
+                                            <p><%=averageRate%></p>
+                                        </div>
                     </div>
                 </div>
                 <% if(film.video){ %>
@@ -71,7 +74,7 @@
                             <div class="comments">
                                 <h3>Комментарий</h3>
                                 <%if(user && user._id){%>
-                                    <form action="" class="add-comment-form">
+                                    <form class="add-comment-form" onSubmit="sendRate(event)">
                                         <p>Оцените фильм</p>
                                         <div class="comment-stars">
                                             <img onclick="rateFilm(1)" src="/images/icons/star.svg" alt="">
@@ -81,8 +84,10 @@
                                             <img onclick="rateFilm(5)" src="/images/icons/star.svg" alt="">
                                         </div>
                                         <p>Напишите комментарий</p>
-                                        <textarea name="text"></textarea>
-                                        <button>Сохранить</button>
+                                        <textarea id="comment-text"></textarea>
+                                        <input type="hidden" value="<%=user._id%>" id="comment_author">
+                                        <input type="hidden" value="<%=film._id%>" id="comment_film">
+                                        <button type="submit">Сохранить</button>
                                     </form>
                                     <%}else{%>
                                         <p>
@@ -92,7 +97,33 @@
                                             чтобы оставить комментарий
                                         </p>
                                         <%}%>
-
+                                    <% if(rates){ rates.forEach(rate=>{
+                                        %>
+                                        <div class="comment">
+                                            <p>Автор: <a href=""><%=rate.authorId.full_name%></a></p>
+                                            
+                                            <div class="comment-stars">
+                                                <% 
+                                                    for(let i=0; i < 5; i++){ 
+                                                        if(i < rate.rate){
+                                                %>
+                                                            <img src="/images/icons/star.svg" alt="" class="active-star">
+                                                <%
+                                                        }else{
+                                                %>
+                                                            <img src="/images/icons/star.svg" alt="">
+                                                <%
+                                                    }
+                                                }
+                                                %>
+                                            </div>
+                                            <% if(rate.text.length > 0){%>
+                                                <p>
+                                                    Комментарий: <%=rate.text%>
+                                                </p>
+                                            <%}%>
+                                        </div>
+                                        <% }) } %>
                         </div>
             </div>
 
